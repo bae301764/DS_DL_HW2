@@ -18,9 +18,9 @@ RNN 모델과 LSTM 모델은 각각 다음과 같은 구조로 구성되어 있�
 # 2. Experimental Setup
 
 learning rate = 0.001\
-weight_decay = 0.01\
+weight_decay = 0.001\
 Optimizer = AdamW\
-epoch = 200\
+epoch = 250\
 batch size = 256\
 validation rate = 0.2\
 random seed = 5\
@@ -29,8 +29,12 @@ validation loss가 가장 낮을 때의 weight을 저장
 # 3. Compare Model (RNN, LSTM)
 
 그래프를 통해 각 모델의 validation loss를 확인했을 때 LSTM의 loss가 RNN보다 작은 것을 확인할 수 있고, 이는 LSTM이 RNN보다 language generation 성능이 더 좋다고 볼 수 있다.
+<img src="https://github.com/bae301764/DS_DL_HW2/blob/main/Compare%20Language%20Model's%20Loss.png">
 
 
+위쪽은 LSTM의 loss 그래프, 아래는 RNN의 loss 그래프이다.
+<img src="https://github.com/bae301764/DS_DL_HW2/blob/main/LSTM's%20Loss.png">
+<img src="https://github.com/bae301764/DS_DL_HW2/blob/main/RNN's%20Loss.png">
 # 4. Text generate example
 
 아래 seed_sentence는 문장을 생성하고자 만든 예시 문장이다.
@@ -114,9 +118,6 @@ All: In twilight's grasp, I fisrect the malice and bereaves the state
 Of that I un's person; his apel's word proceed adped you wit
 
 세번째\
-Second Citizen: Whispered dream, what is to be dreaded.
-
-SICINIUS:
 Second Citizen: Whispered dream, you shall bear the justice, the people were not whether
 He that he come.
 
@@ -132,4 +133,5 @@ teeth and tear it; O, I wash we have sent-
 MARCIUS: Stars above, guide me 't will be dangerous to be the bed'st.
 Breaking him too, I metwine and succeters, flest: no pegind 
 
--> Temperature를 높게 설정할 경우. 문장을 길게 생성하는 경향이 있음.
+-> Temperature를 낮게 설정하면 단어들의 다양성이 낮아져 \n 와 같은 단어들이 반복적으로 나타나는 것을 볼 수 있음.\
+   Temperature를 높게 설정할 경우 단어들의 다양성이 높아져 다양한 철자들을 선택하기 때문에 문장의 형태가 길어지고 반복적인 단어가 나타나기 어려움.
