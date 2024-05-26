@@ -137,69 +137,69 @@ def main():
     model_RNN = CharRNN(input_size, embedding_size, hidden_size, output_size, n_layers).to(device)
     model_LSTM = CharLSTM(input_size, embedding_size, hidden_size, output_size, n_layers).to(device)
     
-    # criterion = torch.nn.CrossEntropyLoss()
-    # optimizer_RNN = torch.optim.AdamW(model_RNN.parameters(), lr=0.001, weight_decay=0.001)
-    # optimizer_LSTM = torch.optim.AdamW(model_LSTM.parameters(), lr=0.001, weight_decay=0.001)
+    criterion = torch.nn.CrossEntropyLoss()
+    optimizer_RNN = torch.optim.AdamW(model_RNN.parameters(), lr=0.001, weight_decay=0.001)
+    optimizer_LSTM = torch.optim.AdamW(model_LSTM.parameters(), lr=0.001, weight_decay=0.001)
 
-    # epochs = 250
-    # rnn_valid_best_loss, lstm_valid_best_loss = float('inf'), float('inf')
-    # rnn_trainloss, rnn_validloss, lstm_trainloss, lstm_validloss = [], [], [], []
+    epochs = 250
+    rnn_valid_best_loss, lstm_valid_best_loss = float('inf'), float('inf')
+    rnn_trainloss, rnn_validloss, lstm_trainloss, lstm_validloss = [], [], [], []
 
-    # dir = './model_weight/RNN'
-    # for f in os.listdir(dir):
-    #     os.remove(os.path.join(dir, f))
+    dir = './model_weight/RNN'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
 
-    # dir = './model_weight/LSTM'
-    # for f in os.listdir(dir):
-    #     os.remove(os.path.join(dir, f))
+    dir = './model_weight/LSTM'
+    for f in os.listdir(dir):
+        os.remove(os.path.join(dir, f))
 
     
-    # for epoch in tqdm(range(epochs)):
-    #     train_loss = train(model_RNN, train_loader, device, criterion, optimizer_RNN)
-    #     valid_loss = validate(model_RNN, val_loader, device, criterion)
-    #     rnn_trainloss.append(train_loss)
-    #     rnn_validloss.append(valid_loss)
+    for epoch in tqdm(range(epochs)):
+        train_loss = train(model_RNN, train_loader, device, criterion, optimizer_RNN)
+        valid_loss = validate(model_RNN, val_loader, device, criterion)
+        rnn_trainloss.append(train_loss)
+        rnn_validloss.append(valid_loss)
 
-    #     if valid_loss < rnn_valid_best_loss:
-    #         rnn_valid_best_loss = valid_loss
-    #         print(f'best rnn loss : {round(rnn_valid_best_loss, 4)}')
-    #         best_RNN_weight = model_RNN.state_dict()
-    #         torch.save(best_RNN_weight, f'./model_weight/RNN/best_model_epoch2.pth')
+        if valid_loss < rnn_valid_best_loss:
+            rnn_valid_best_loss = valid_loss
+            print(f'best rnn loss : {round(rnn_valid_best_loss, 4)}')
+            best_RNN_weight = model_RNN.state_dict()
+            torch.save(best_RNN_weight, f'./model_weight/RNN/best_model_epoch2.pth')
 
 
-    #     train_loss = train(model_LSTM, train_loader, device, criterion, optimizer_LSTM)
-    #     valid_loss = validate(model_LSTM, val_loader, device, criterion)
-    #     lstm_trainloss.append(train_loss)
-    #     lstm_validloss.append(valid_loss)
+        train_loss = train(model_LSTM, train_loader, device, criterion, optimizer_LSTM)
+        valid_loss = validate(model_LSTM, val_loader, device, criterion)
+        lstm_trainloss.append(train_loss)
+        lstm_validloss.append(valid_loss)
 
-    #     if valid_loss < lstm_valid_best_loss:
-    #         lstm_valid_best_loss = valid_loss
-    #         print(f'best lstm loss : {round(lstm_valid_best_loss, 4)}')
-    #         best_LSTM_weight = model_LSTM.state_dict()
-    #         torch.save(best_LSTM_weight, f'./model_weight/LSTM/best_model_epoch2.pth')
+        if valid_loss < lstm_valid_best_loss:
+            lstm_valid_best_loss = valid_loss
+            print(f'best lstm loss : {round(lstm_valid_best_loss, 4)}')
+            best_LSTM_weight = model_LSTM.state_dict()
+            torch.save(best_LSTM_weight, f'./model_weight/LSTM/best_model_epoch2.pth')
 
-    # # validation을 이용한 성능 비교
-    # plt.plot(rnn_validloss, color='red', label='RNN')
-    # plt.plot(lstm_validloss, color='blue', label='LSTM')
-    # plt.legend()
-    # plt.xlabel('Epoch')
-    # plt.ylabel('Validation Loss')
-    # plt.savefig("Compare Language Model's Loss2.png")
-    # plt.cla()
+    # validation을 이용한 성능 비교
+    plt.plot(rnn_validloss, color='red', label='RNN')
+    plt.plot(lstm_validloss, color='blue', label='LSTM')
+    plt.legend()
+    plt.xlabel('Epoch')
+    plt.ylabel('Validation Loss')
+    plt.savefig("Compare Language Model's Loss2.png")
+    plt.cla()
 
-    # plt.plot(rnn_validloss, color='red', label='RNN')
-    # plt.legend()
-    # plt.xlabel('Epoch')
-    # plt.ylabel('Validation Loss')
-    # plt.savefig("RNN's Loss2.png")
-    # plt.cla()
+    plt.plot(rnn_validloss, color='red', label='RNN')
+    plt.legend()
+    plt.xlabel('Epoch')
+    plt.ylabel('Validation Loss')
+    plt.savefig("RNN's Loss2.png")
+    plt.cla()
 
-    # plt.plot(lstm_validloss, color='blue', label='LSTM')
-    # plt.legend()
-    # plt.xlabel('Epoch')
-    # plt.ylabel('Validation Loss')
-    # plt.savefig("LSTM's Loss2.png")
-    # plt.cla()
+    plt.plot(lstm_validloss, color='blue', label='LSTM')
+    plt.legend()
+    plt.xlabel('Epoch')
+    plt.ylabel('Validation Loss')
+    plt.savefig("LSTM's Loss2.png")
+    plt.cla()
 
     seed_sentence = ["First Citizen: O, fleeting time",
                     "All: In twilight's grasp, I fi",
